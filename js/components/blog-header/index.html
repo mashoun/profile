@@ -1,0 +1,18 @@
+<div class="p-2 bg-white shadow-sm rounded d-flex gap-3 justify-content-between align-items-center">
+    <div class="d-flex gap-2 align-items-center">
+        <img :src="store.logoSrc" alt="my-pic" aria-label="logo"  class="rounded-circle object-fit-cover shadow-sm rounded-circle" width="45" height="45">
+        <slot></slot>
+    </div>
+    <div class="">
+        <i data-bs-toggle="dropdown" role="button" class="bi bi-three-dots-vertical fs-5"></i>
+        <ul class="dropdown-menu sans fs-small">
+            <li><a aria-label="home page"  class="dropdown-item" href="/">Home page</a></li>
+            <li><a aria-label="about me"  class="dropdown-item" href="/about">About me</a></li>
+            <li><a aria-label="my projects"  class="dropdown-item" href="/projects">My projects</a></li>
+            <li><a aria-label="my courses"  class="dropdown-item" href="/courses">My courses</a></li>
+            <li><a aria-label="useful links"  class="dropdown-item" href="/links">Useful links</a></li>
+            <li><a aria-label="my blogs"  class="dropdown-item" href="/blogs">My blogs</a></li>
+            <li><a aria-label="contact me"  class="dropdown-item" href="/contact">Contact</a></li>
+        </ul>
+    </div>
+</div>

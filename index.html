@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mahmoud Mashoun</title>
+
+    <!-- SEO Tags -->
+    <meta name="title" content="Mahmoud Mashoun">
+    <meta name="description" content="Full Stack Web Developer, GDG Organiser & Google Workspace Automation Expert.It's not about writing many lines of code to solve a problem, It's all about doing it in
+    less time & cost.">
+    <meta name="keywords" content="lebanon,google apps script,vue js,vuegle stack,google developer in lebanon,google developer in mena region,lebanese developer">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="Mahmoud Mashoun">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mashoun.com">
+    <meta property="og:title" content="Mahmoud Mashoun">
+    <meta property="og:description" content="Full Stack Web Developer, GDG Organiser & Google Workspace Automation Expert.">
+    <meta property="og:image" content="/assets/logo.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mashoun.com">
+    <meta property="twitter:title" content="Mahmoud Mashoun">
+    <meta property="twitter:description" content="Full Stack Web Developer, GDG Organiser & Google Workspace Automation Expert.">
+    <meta property="twitter:image" content="/assets/logo.jpg">
+    <link rel="shortcut icon" href="/assets/logo.jpg" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/app.css">
+    
+    
+    <!-- JS -->
+    <script src="/js/packages/vue.min.js" defer></script>
+
+
+</head>
+
+<body id="app">
+
+    <my-reels v-if="store.showReels" ></my-reels>
+    <new-meeting v-if="store.showMeetingModal"></new-meeting>
+    <subscribe v-if="store.showSubscribtionModal"></subscribe>
+
+    <header class="container my-3 rounded">
+        <section class="bg-grid rounded shadow-sm">
+            <img src="/assets/wallpaper.jpg" alt="wallpaper" class="wallpaper object-fit-cover skeleton w-100 rounded-top" height="270">
+            
+            <aside class="p-3 d-flex flex-column gap-2 position-relative">
+                
+                <div @click="store.showReels = true" role="button" title="open stories" class="p-1 bg-primary-100 rounded-circle logo" style="width: fit-content;">
+                    <img src="/assets/logo.jpg" alt="my-pic" class="border border-light border-4 rounded-circle object-fit-cover shadow-sm rounded-circle" width="100" height="100">                
+                </div>
+                <div class="d-flex gap-3 flex-column pt-4 mt-1">
+                    <section class="d-flex flex-column gap-1 bg-white w-fit">
+                        <h1 class="bungee text-primary-200 fs-4 ls-1 d-flex gap-1 align-items-center">
+                            <b>Mahmoud Mashoun</b>
+                        </h1>
+                        <p class="fs-smaller text-secondary sans text-justify">
+                            <b>Full Stack Web Developer, GDG Organiser & Google Workspace Automation Expert</b>
+                        </p>
+                    </section>
+                    <section class="d-flex gap-1">
+                        
+                        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start">
+                            <a href="/about" aria-label="about" role="button" title="about me" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">account_circle</span>
+                                <span class="text-primary-200 roboto text-lowercase">about</span>
+                            </a>
+                            <span @click="store.showMeetingModal = true" aria-label="schedule a meeting" role="button" title="schedule a meeting" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">video_call</span>
+                                <span class="text-primary-200 roboto text-lowercase">meeting</span>
+                            </span>
+                            <span role="button" title="open my stories" aria-label="check my reels" @click="store.showReels = true" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">web_stories</span>
+                                <span class="text-primary-200 roboto text-lowercase">reels</span>
+                            </span>
+                            <span @click="store.showSubscribtionModal = true" aria-label="subscribe to my newsletter" role="button" title="subscribe to my newsletter" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">notifications_active</span>
+                                <span class="text-primary-200 roboto text-lowercase">subscribe</span>
+                            </span>
+                            <span role="button" title="privacy policy" aria-label="privacy policy" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">verified_user</span>
+                                <span class="text-primary-200 roboto text-lowercase">privacy policy</span>
+                            </span>
+                            <span role="button" title="terms and conditions" aria-label="terms and conditions" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">description</span>
+                                <span class="text-primary-200 roboto text-lowercase">terms & conditions</span>
+                            </span>
+                            <a href="/links" role="button" title="important links" aria-label="important links" class="d-flex flex-fill gap-1 px-2 align-items-center bg-light border border-2 rounded fs-smaller">
+                                <span class="material-symbols-outlined fs-6">link</span>
+                                <span class="text-primary-200 roboto text-lowercase">links</span>
+                            </a>
+                        </div>
+                    </section>
+
+                </div>
+            </aside>
+            
+        </section>
+
+    </header>
+    
+
+
+    <main class="my-5">
+
+        <solutions-section></solutions-section>
+
+        <hr class="container my-5">
+
+        <tutorials-section></tutorials-section>
+
+        <hr class="container my-5">
+
+        <section class="container">
+            <div class="row g-4">
+                <div class="col-12">
+                    <subtitle>My Blogs</subtitle>
+                    <textnote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe atque, voluptas quos ipsa earum reprehenderit.</textnote>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <aside class="p-3 bg-light rounded shadow-sm d-flex flex-column gap-3">
+                        <div class="ratio ratio-4x3"><img src="https://picsum.photos/1081" alt="blog" class="object-fit-cover rounded skeleton shadow-sm"></div>
+                        
+                        <div class="d-flex flex-column gap-2">
+                            <p class="sans text-secondary text-fade fs-x-small fw-bold"><span class="px-2 py-1 bg-danger rounded text-light ls-1 me-2">BLOG</span>2 months ago</p>
+                            <h6 class="roboto fw-bold text-primary-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, ipsum.</h6>
+                            <p class="sans fs-small text-secondary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt odio vero pariatur nam ab, tempora illo qui obcaecati repellendus eius aliquid cum ipsam aspernatur? Aspernatur unde numquam excepturi dolor in!</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center gap-3">
+                                
+                                <a href="" aria-label="continue reading" class="text-success fs-x-small icon-link icon-link-hover ls-1"><span>continue reading</span> <i class="bi bi-arrow-right"></i></a>
+                                <div class="d-flex gap-2">
+                                    <!-- <span class="material-symbols-outlined text-secondary">add_reaction</span> -->
+                                    <!-- <span class="material-symbols-outlined text-secondary">comment</span> -->
+                                    <span class="material-symbols-outlined text-secondary fs-small">share</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer-section></footer-section>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="./js/packages/bootstrap.min.js"></script>
+    <script src="./js/packages/swiper.min.js"></script>
+    <script type="module" src="./js/app.js"></script>
+
+</body>
+
+</html>

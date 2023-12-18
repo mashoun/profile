@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Editor - Mahmoud Mashoun</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/blog-editor.css">
+
+    <!-- JS -->
+    <script src="/js/packages/vue.min.js" defer></script>
+
+</head>
+
+<body id="root">
+    <page-not-found v-if="hideEditor"><span @dblclick="hideEditor = false">try again</span></page-not-found>
+
+    <section v-if="!hideEditor" class="w-100 d-flex justify-content-between align-items-center gap-3 p-3 shadow-sm border">
+        <section>
+            <h6 class="m-0 subtitle sans fw-bold">New Page</h6>
+        </section>
+        <section class="d-flex gap-2">
+
+            <span @click="preview = !preview" aria-label="preview" role="button" title="preview" class="d-flex flex-fill gap-1 px-2 py-1 align-items-center bg-light border border-2 rounded fs-smaller">
+                <span class="material-symbols-outlined fs-6">preview</span>
+                <span class="d-none d-lg-block text-primary-200 roboto text-lowercase">preview</span>
+            </span>
+
+        </section>
+
+    </section>
+
+    <main v-show="!hideEditor" class="py-3">
+        <section class="container">
+
+            <section class="row g-2" v-show="!preview">
+                
+                <div class="col-12">
+                    <select class="form-select" v-model="blog.badge">
+                        <option value="BLOG" selected>BLOG</option>
+                        <option value="PROJECT">PROJECT</option>
+                        <option value="COURSE">COURSE</option>
+                        <option value="EVENT">EVENT</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <input v-model="blog.title" type="text" placeholder="title" class="form-control">
+                </div>
+                <div class="col-12">
+                    <div class="form-control text-secondary d-flex gap-3 align-items-center justify-content-between" @click="selectImages" aria-label="add images" role="button" title="add images" >
+                        <span class="">media</span>
+                        <div class="d-flex gap-2 align-items-center">
+                            <img v-for="node in thumbnails" :src="node.src64" :alt="node.alt" width="40" height="40" class="object-fit-contain skeleton rounded">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <input v-model="blog.keywords" type="text" placeholder="seo keywords" class="form-control">
+                </div>
+                <div class="col-12">
+                    <textarea v-model="blog.description" type="text" placeholder="seo description" class="form-control" rows="3"></textarea>
+                </div>
+
+                
+                <div class="col-12 mt-3">
+                    <aside>
+                        <div id="editor-container" class=""></div>
+                    </aside>
+                </div>
+                
+            </section>
+            <section class="row my-3" v-show="preview">
+                
+                <div class="col-12">
+                    <section class="d-flex flex-column gap-3">
+
+                        <p class="text-start roboto fs-smaller p-3 text-secondary">
+                            <span  @click="preview = !preview" role="button" title="back to editor"><b>editor</b></span> / <span>previewing changes</span>
+                        </p>
+                        <aside class="p-3 shadow-sm rounded" style="min-height: 241.6px;">
+                            <div id="editor-output"></div>
+                            
+                        </aside>
+                        <small v-show="!isValidPage().status" class="fs-x-small text-danger">{{isValidPage().message}}</small>
+                        <button @click="generateBlog" class="btn btn-sm btn-outline-dark d-flex gap-2 align-items-center" style="width: fit-content !important;" :disabled="spinner || !isValidPage().status">
+                            <span v-show="spinner" class="spinner-border spinner-border-sm"></span>
+                            <span>publish</span>
+                        </button>
+
+                    </section>
+                </div>
+            </section>
+
+        </section>
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script src="./js/packages/bootstrap.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script type="module" src="/js/editor.js"></script>
+
+</body>
+
+</html>

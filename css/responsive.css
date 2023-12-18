@@ -1,0 +1,22 @@
+/* x-lg screens */
+@media (max-width:1400px) {}
+
+
+/* lg screens */
+@media (max-width:1200px) {}
+
+
+/* md screens */
+@media (max-width:992px) {
+    .wallpaper {
+        height: 200px !important;
+    }
+
+}
+
+/* sm screens */
+@media (max-width:765px) {
+    .wallpaper {
+        height: 150px !important;
+    }
+}

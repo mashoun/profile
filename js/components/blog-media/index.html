@@ -1,0 +1,9 @@
+<figure>
+    <swiper-container class="w-100" space-between="15" navigation="true" pagination="true" :autoplay="{delay:2500}">
+        <swiper-slide v-for="node in media" :key="node">
+            <div class="ratio ratio-16x9">
+                <img :src="node.src" :alt="node.alt" width="1920" height="1080" class="object-fit-cover skeleton rounded">
+            </div>
+        </swiper-slide>
+    </swiper-container>
+</figure>

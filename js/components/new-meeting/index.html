@@ -1,0 +1,55 @@
+<section class="w-100 h-100 bg-reels d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+
+                <aside class="p-3 bg-light rounded d-flex flex-column gap-3 scale-in-center">
+
+                    <div class="">
+
+                        <subtitle>schedule a meeting</subtitle>
+                        
+                        <textnote>Please check your email inbox for the meeting confirmation</textnote>
+                    </div>
+                
+                    <div class="d-flex align-items-center gap-1 sans">
+                        <b class="text-secondary" style="width: 100px;">Topic?</b>
+                        <input v-model="payload.title" type="text" class="form-control">
+                    </div>
+                    <div class="d-flex align-items-center gap-1 sans">
+                        <b class="text-secondary" style="width: 100px;">Name?</b>
+                        <input v-model="payload.name" type="text" class="form-control">
+                    </div>
+                    <div class="d-flex align-items-center gap-1 sans">
+                        <b class="text-secondary" :class="{'text-danger':!isValidEmail(payload.email)}" style="width: 100px;">Email?</b>
+                        <input v-model="payload.email" type="text" class="form-control">
+                    </div>
+                    <div class="d-flex align-items-center gap-1 sans">
+                        <b class="text-secondary" style="width: 100px;">Day?</b>
+                        <input v-model="payload.date" type="date" class="form-control">
+                    </div>
+                    <div class="d-flex align-items-center gap-1 sans">
+                        <b class="text-secondary" style="width: 100px;">Time?</b>
+                        <input v-model="payload.time" type="time" class="form-control">
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div v-show="spinner" class="spinner-progress"></div>
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-between align-items-center gap-1 sans">
+                        
+                        <div class="w-100 d-flex justify-content-end align-items-center gap-1 sans">
+                            <button v-if="!spinner" @click="scheduleNewMeeting" :disabled="isEmptyValue || !isValidEmail(payload.email)" style="width: 100px;" class="btn btn-sm btn-primary d-flex gap-2 align-items-center justify-content-center">
+                                <span>confirm</span>
+                            </button>
+                            <button  style="width: 100px;" class="btn btn-sm btn-outline-secondary" @click="store.showMeetingModal = false">close</button>
+                        </div>
+                    </div>
+                </aside>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
