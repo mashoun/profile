@@ -24,6 +24,10 @@
     -webkit-font-smoothing: antialiased;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 :root {
     --primary-0: #0d1b2a;
     --primary-10: #677d95;

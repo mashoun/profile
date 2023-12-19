@@ -6,7 +6,11 @@ export default {
     logoSrc: '/assets/logo.jpg',
     OAuthUser: false,
     article:'',
-    api: 'https://script.google.com/macros/s/AKfycbyH72TQuoz2XuMrLSHmUKsLn8a-S8_bY89WekfaXkNDAAOJBE9oAmbxgx5lS1AJG4uK/exec',
+    username:'',
+    password:'',
+    isLogedIn:false,
+    token:'',
+    api: 'https://script.google.com/macros/s/AKfycbzyeZ6hvraJ2LfKv22hOvezk86PZIPkJZ9J-fbpCwpm1a3FmIaSuMBBsqwI2oeGt7QN/exec',
 
     reels: [
         {

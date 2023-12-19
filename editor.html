@@ -18,9 +18,36 @@
 </head>
 
 <body id="root">
-    <page-not-found v-if="hideEditor"><span @dblclick="hideEditor = false">try again</span></page-not-found>
+    <page-not-found v-if="hideEditor" v-cloak ><span @dblclick="hideEditor = false">try again</span></page-not-found>
 
-    <section v-if="!hideEditor" class="w-100 d-flex justify-content-between align-items-center gap-3 p-3 shadow-sm border">
+    <section v-if="!store.isLogedIn && !hideEditor" v-cloak class="w-100 h-100 bg-light d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-4">
+                    <aside class="p-3 d-flex flex-column gap-3 shadow-sm rounded align-items-center text-center">
+                        <img src="/favicon.ico" alt="logo" width="75" class="object-fit-cover skeleton rounded-circle shadow-sm">
+                        <div class="">
+                            <h4 class="sans fs-4">Mahmoud Mashoun</h4>
+                        </div>
+                        <div class="w-100 d-flex flex-column gap-2">
+                            <input v-model="store.username" @keyup.enter="utilities.focus('password')" type="text" placeholder="username" class="w-100 form-control">
+                            <input v-model="store.password" @keyup.enter="login" id="password" type="password" placeholder="password" class="w-100 form-control">
+                        </div>
+                        <button @click="login" class="w-100 btn btn-sm btn-outline-primary d-flex gap-2 align-items-center justify-content-center">
+                            <span v-show="spinner" v-cloak class="spinner-border spinner-border-sm"></span>
+                            <span class="text-primary-200 roboto text-lowercase">login</span>
+                        </button>
+                        
+                        <p class="text-secondary fs-x-small sans text-lowercase pt-1">dashboard - version 1.0</p>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section v-if="!hideEditor" v-cloak  class="w-100 d-flex justify-content-between align-items-center gap-3 p-3 shadow-sm border">
         <section>
             <h6 class="m-0 subtitle sans fw-bold">New Page</h6>
         </section>
@@ -35,7 +62,7 @@
 
     </section>
 
-    <main v-show="!hideEditor" class="py-3">
+    <main v-show="!hideEditor" v-cloak  class="py-3">
         <section class="container">
 
             <section class="row g-2" v-show="!preview">
@@ -90,7 +117,7 @@
                         <small v-show="!isValidPage().status" class="fs-x-small text-danger">{{isValidPage().message}}</small>
                         <button @click="generateBlog" class="btn btn-sm btn-outline-dark d-flex gap-2 align-items-center" style="width: fit-content !important;" :disabled="spinner || !isValidPage().status">
                             <span v-show="spinner" class="spinner-border spinner-border-sm"></span>
-                            <span>publish</span>
+                            <span class="m-0">publish</span>
                         </button>
 
                     </section>

@@ -8,7 +8,7 @@ var app = Vue.createApp({
             store,
             utilities,
             preview: false,
-            hideEditor: false,
+            hideEditor: true,
             spinner: false,
             thumbnails: false,
             template: false,
@@ -24,6 +24,31 @@ var app = Vue.createApp({
         }
     },
     methods: {
+
+        login() {
+            this.spinner = true
+            fetch(this.store.api, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain"
+                },
+                body: JSON.stringify({
+                    username: this.store.username,
+                    password: this.store.password
+                })
+            }).then(res => res.json()).then(res => {
+                console.log(res);
+                if(res.status){
+
+                    this.spinner = false
+                    this.store.token = res.token
+                    this.store.isLogedIn = true
+                }
+            }).catch(err => {
+                console.log(err);
+                this.spinner = false
+            })
+        },
 
         isValidPage() {
             // check for thumbnails
@@ -48,28 +73,31 @@ var app = Vue.createApp({
         },
 
         async generateBlog() {
-            if(this.isValidPage()){
+            if (this.isValidPage() && this.store.isLogedIn) {
                 if (confirm('Are you sure ?')) {
                     this.spinner = true
-    
+
                     // fetching the template
                     this.template = await utilities.getPage('/_template/index.html')
-    
+
                     // hosting thumbnails
                     if (this.thumbnails) {
-    
+
                         fetch(this.store.api + '?hostImages=1', {
                             method: "POST",
                             headers: {
                                 "Content-Type": "text/plain"
                             },
                             body: JSON.stringify({
-                                images: this.thumbnails
+                                images: this.thumbnails,
+                                username: this.store.username,
+                                password: this.store.password
+                                
                             })
                         }).then(res => res.json()).then(res => {
                             console.log(res);
                             this.thumbnails = res
-    
+
                             // subsituting the values
                             this.template = this.template.replaceAll('_title', utilities.deQuote(this.blog.title.trim()))
                             this.template = this.template.replaceAll('_url', 'https://mashoun.com/' + utilities.deQuote(this.blog.badge.toLowerCase() + "s/") + utilities.encodeTitle(this.blog.title) + '.html')
@@ -81,25 +109,34 @@ var app = Vue.createApp({
                             this.template = this.template.replaceAll("_date", new Date())
                             this.template = this.template.replaceAll("_thumbnail", this.thumbnails[0].src)
                             this.template = this.template.replaceAll("_media", JSON.stringify(this.thumbnails))
-    
+
                             // inserting article
                             this.template = this.template.replaceAll("<!-- _article -->", this.store.article)
                             // remove live server code
                             this.template = this.template.replaceAll(/<!-- Code injected by live-server -->[\s\S]*?<\/script>/g, "")
-    
-                            navigator.clipboard.writeText(this.template)
-                            console.log(this.template);
-    
+                            this.template = utilities.text64(this.template)
+
+                            var github = utilities.githubPush({
+                                content:this.template,
+                                token:this.store.token,
+                                filename: utilities.deQuote(this.blog.badge.toLowerCase() + "s/") + utilities.encodeTitle(this.blog.title) + '.html'
+                            })
+
+                            console.log(github);
+
+                            // navigator.clipboard.writeText(this.template)
+                            // console.log(utilities.text64(this.template));
+
                             this.spinner = false
                             alert('copied')
-    
+
                         }).catch(err => {
                             console.log(err);
                             this.spinner = false
                         })
-    
+
                     }
-    
+
                 }
             }
 

@@ -183,6 +183,7 @@ async function githubPush(payload) {
 
     var res = await fetch(url, config);
     // res = await res.json();
+    return res
     // console.log(res);
     // return data.content.sha;
 }
@@ -194,8 +195,13 @@ function text64(htmlString) {
     return base64Data;
 }
 
+function focus(id) {
+    document.getElementById(id).focus()
+}
+
 export default {
     githubPush,
+    focus,
     deQuote,
     text64,
     removeLiveServerCode,

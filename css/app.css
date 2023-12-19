@@ -27,6 +27,10 @@
     -webkit-font-smoothing: antialiased;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 :root {
     --primary-0: #0d1b2a;
     --primary-10: #677d95;
@@ -75,7 +79,7 @@ a {
 }
 
 
-article > div >  blockquote {
+article>div>blockquote {
     /*roboto text-primary-200 border-start border-4 border-warning ps-2  */
     /* font-size: larger; */
     font-family: 'Roboto Mono', monospace;
@@ -83,10 +87,10 @@ article > div >  blockquote {
     color: var(--primary-200);
     padding-left: 8px;
     border: none;
-    border-left: 4px solid var(--bs-warning) ;
+    border-left: 4px solid var(--bs-warning);
 }
 
-article > div > p {
+article>div>p {
     color: var(--primary-200);
     font-family: 'Plus Jakarta Sans', sans-serif;
     /* text-align: justify; */
@@ -94,7 +98,7 @@ article > div > p {
 }
 
 
-article > div > pre {
+article>div>pre {
     background-color: var(--primary-0);
     color: var(--primary-10);
     padding: 1rem;
@@ -364,4 +368,3 @@ nav>a {
     z-index: 0;
     transform: scale(1.5);
 }
-
