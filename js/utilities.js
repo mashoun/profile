@@ -161,8 +161,43 @@ function removeLiveServerCode(htmlString) {
     return htmlString.replace(pattern, '');
 }
 
+async function githubPush(payload) {
+
+    var data = JSON.stringify({
+        "message": "html file",
+        "content": `${payload.content}`
+    });
+
+    var headers = {
+        'Authorization': `Bearer ${payload.token}`,
+        'Content-Type': 'application/json'
+    };
+
+    var url = `https://api.github.com/repos/mashoun/profile/contents/${payload.filename}`;
+
+    var config = {
+        method: 'PUT',
+        headers: headers,
+        body: data
+    };
+
+    var res = await fetch(url, config);
+    // res = await res.json();
+    // console.log(res);
+    // return data.content.sha;
+}
+
+function text64(htmlString) {
+    const encoder = new TextEncoder();
+    const binaryData = encoder.encode(htmlString);
+    const base64Data = btoa(String.fromCharCode(...new Uint8Array(binaryData.buffer)));
+    return base64Data;
+}
+
 export default {
+    githubPush,
     deQuote,
+    text64,
     removeLiveServerCode,
     encodeTitle,
     getCurrentDate,
