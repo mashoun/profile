@@ -88,7 +88,7 @@ export default {
             date: '2022-8-1',
             title: 'Events Management System',
             client: 'Personal Project',
-            flag: 'LOCK',
+            flag: 'LOCK-GREY',
             description: `The Goal is to simplify event planning, offering both online and offline support. Users can seamlessly create and monitor events by inputting details into a Google sheet, which, with one click, integrates with Google Calendar and sends customized confirmation emails. The system boasts a user-friendly design, allowing concurrent management of multiple events, Google Calendar notifications, personalized email templates, and future compatibility for WhatsApp and SMS invitations. Additional features include participant grouping, website embedding, event feedback submissions, QR code attendance verification, waiting lists, analytics, and business email and domain configurations.`,
             tags: ['automation','google_calendar','analytics','attendance_verification','vuegle_stack'],
             url: '',
