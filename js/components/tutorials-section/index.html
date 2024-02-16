@@ -8,15 +8,15 @@
             <aside class="p-2 bg-light rounded shadow-sm ">
                 <div class="row g-3">
                     <div class="col-12 col-lg-4">
-                        <div class="ratio ratio-16x9"><img :src="node.thumbnail" alt="img" class="object-fit-cover rounded shadow-sm skeleton"></div>
+                        <div class="ratio ratio-16x9"><img :src="node.thumbnails[0]" :alt="node.title" class="object-fit-cover rounded shadow-sm skeleton"></div>
                     </div>
                     <div class="col-12 col-lg-8">
                         <div class="d-flex flex-column gap-3 justify-content-between h-100">
                             
                             <div class="d-flex flex-column gap-2">
-                                <p class="sans text-secondary text-fade fs-x-small fw-bold"><span class="px-2 py-1 bg-warning rounded text-dark ls-1 me-2">{{node.badge}}</span><time>{{utilities.timo(node.date)}}</time></p>
+                                <p class="sans text-secondary text-fade fs-x-small fw-bold"><span class="px-2 py-1 bg-warning rounded text-dark ls-1 me-2">{{node.badge}}</span><time>{{utilities.timo(node.timestamp)}}</time></p>
                                 <h6 class="roboto fw-bold text-primary-200 text-fade-2">{{node.title}}</h6>
-                                <p class="d-lg-none text-fade-3 sans fs-small text-secondary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt odio vero pariatur nam ab, tempora illo qui obcaecati repellendus eius aliquid cum ipsam aspernatur? Aspernatur unde numquam excepturi dolor in!</p>
+                                <p class="d-lg-none text-fade-3 sans fs-small text-secondary text-justify">{{node.description}}</p>
 
                             </div> 
                             <a :href="node.url" aria-label="watch video" class="text-success fs-x-small icon-link icon-link-hover ls-1"><span>watch video</span> <i class="bi bi-arrow-right"></i></a>                        

@@ -199,7 +199,22 @@ function focus(id) {
     document.getElementById(id).focus()
 }
 
+
+function isValidPayload(payload, keys = []) {
+    for (let i = 0; i < keys.length; i++) {
+        if (!payload[keys[i]] || payload[keys[i]] == "") return {
+            status: false,
+            message: keys[i] + ' is missing!'
+        }
+    }
+    return {
+        status: true,
+        message: 'Valid payload'
+    }
+}
+
 export default {
+    isValidPayload,
     githubPush,
     focus,
     deQuote,

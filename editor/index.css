@@ -39,6 +39,56 @@
 
 }
 
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-primary-10 {
+    color: var(--primary-10) !important;
+}
+
+.text-primary-100 {
+    color: var(--primary-100) !important;
+}
+
+.text-primary-150 {
+    color: var(--primary-150) !important;
+}
+
+.text-primary-200 {
+    color: var(--primary-200) !important;
+}
+
+.text-primary-300 {
+    color: var(--primary-300) !important;
+}
+
+.text-primary-400 {
+    color: var(--primary-400);
+}
+
+.bg-primary-100 {
+    background-color: var(--primary-100);
+}
+
+.bg-primary-150 {
+    background-color: var(--primary-150);
+}
+
+.bg-primary-200 {
+    background-color: var(--primary-200);
+}
+
+.bg-primary-300 {
+    background-color: var(--primary-300);
+}
+
+.bg-primary-400 {
+    background-color: var(--primary-400);
+}
+
+
 #message {
     background: white;
     max-width: 360px;
@@ -94,6 +144,11 @@
     color: rgba(0, 0, 0, 0.4);
     text-align: center;
     font-size: 13px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 @media (max-width: 600px) {
@@ -256,4 +311,70 @@ span {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 7;
     position: relative;
+}
+
+.btn-retro {
+    padding: 0rem .5rem;
+    border: 2px solid grey;
+    font-size: small;
+    letter-spacing: 1px;
+    /* font-family: monospace !important; */
+    font-family: 'Bungee', cursive;
+    border-radius: 5px;
+    background-color: aliceblue;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.text-blockquote {
+    line-height: 1rem;
+    color: var(--primary-200);
+    padding-left: 8px;
+    border: none;
+    border-left: 4px solid var(--bs-warning);
+}
+.text-blockquote-dev {
+    line-height: 1rem;
+    color: var(--primary-200);
+    padding-left: 8px;
+    border: none;
+    border-left: 4px solid var(--primary-100);
+}
+
+.router-link-active {
+    background-color: var(--primary-200);
+    color: var(--primary-400);
+    border-color: var(--primary-0);
+}
+
+
+
+.bg-grid {
+    background-image: linear-gradient(#ededf6 0.5px, transparent 0.5px), linear-gradient(to right, #ededf6 0.5px, transparent 0.5px);
+    background-size: 25px 25px;
+    background-color: #ffffff;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
