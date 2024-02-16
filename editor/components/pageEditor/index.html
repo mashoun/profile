@@ -1,0 +1,87 @@
+<section class="container">
+    <div class="row g-3">
+        <div class="col-12">
+            <aside class="bg-light shadow-sm rounded">
+                <div class="accordion" id="pageEditor">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                <span class="text-blockquote-dev bungee">1. Page Details</span>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#pageEditor">
+                            <div class="accordion-body">
+                                <aside class="d-flex flex-column gap-2">
+                                    <span class="fs-small text-secondary ps-1">select page type</span>
+                                    <select class="form-select" v-model="store.nextPage.type">
+                                        <option value="BLOG">BLOG</option>
+                                        <option value="SOLUTION">SOLUTION</option>
+                                        <option value="TUTORIAL">TUTORIAL</option>
+                                    </select>
+                                    
+                                    <input v-model="store.nextPage.badge" type="text" placeholder="Badge" class="form-control" list="badgeList">
+                                    <datalist id="badgeList">
+                                        <option value="COURSE">COURSE</option>
+                                        <option value="PROJECT">PROJECT</option>
+                                        <option value="BLOG">BLOG</option>
+                                        <option value="EVENT">EVENT</option>
+                                    </datalist>
+                                    <input v-model="store.nextPage.title" type="text" placeholder="Title" class="form-control">
+                                    <div class="form-control text-secondary d-flex gap-3 align-items-center justify-content-between" @click="selectImages" aria-label="add images" role="button" title="add images" >
+                                        <span class="">Thumbnail 🖼️</span>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <img v-for="node in store.nextPage.thumbnails" :src="node.src64" :alt="node.alt" width="40" height="40" class="object-fit-contain rounded">
+                                        </div>
+                                    </div>
+                                    <input v-show="store.nextPage.type == 'SOLUTION'" v-model="store.nextPage.flag" type="text" placeholder="Project country flag" class="form-control">
+                                    <input v-show="store.nextPage.type == 'SOLUTION'" v-model="store.nextPage.client" type="text" placeholder="Project client" class="form-control">
+                                    <input v-model="store.nextPage.keywords" type="text" placeholder="Keywords" class="form-control">
+                                    <textarea v-model="store.nextPage.description" type="text" placeholder="Description" class="form-control" rows="3"></textarea>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                <span class="text-blockquote-dev bungee">2. Write the article</span>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#pageEditor">
+                            <div class="accordion-body">
+                                <aside>
+                                    <div id="editor-container"></div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                <span class="text-blockquote-dev bungee">3. Preview & Publish</span>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#pageEditor">
+                            <div class="accordion-body">
+                                <aside>
+                                    <section class="d-flex flex-column gap-3">
+                                        <aside class="p-2 border rounded" style="min-height: 241.6px;">
+                                            <div id="editor-output"></div>
+                                        </aside>
+                                        <small v-show="!utilities.isValidPayload(store.nextPage,['badge','title','keywords','description','thumbnails']).status" class="fs-x-small text-danger">{{utilities.isValidPayload(store.nextPage,['badge','title','keywords','description','thumbnails']).message}}</small>
+                                        <!-- <button @click="generateBlog" class="btn btn-sm btn-outline-dark d-flex gap-2 align-items-center" style="width: fit-content !important;" :disabled="spinner || !isValidPage().status">
+                                            <span v-show="spinner" class="spinner-border spinner-border-sm"></span>
+                                            <span class="m-0">publish</span>
+                                        </button> -->
+                                        <button @click="publishPage">Publish Test</button>
+                
+                                    </section>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

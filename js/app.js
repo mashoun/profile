@@ -1,43 +1,36 @@
 import store from './store.js'
 import utilities from './utilities.js'
-import './day.min.js'
-import './relativetime.min.js'
+import Reel from './classes/Reel.js'
+import Link from './classes/Link.js'
+import Blog from './classes/Blog.js'
+import Solution from './classes/Solution.js'
+import Tutorial from './classes/Tutorial.js'
+import './packages/day.min.js'
+import './packages/relativetime.min.js'
 const app = Vue.createApp({
     data() {
         return {
-            title: 'Mashoun',
             store,
             utilities,
             spinner: false
         }
     },
     methods: {
-        // handleResponse(res) {
-        //     console.log(res);
-        //     if (res.credential) {
-        //         var user = JSON.parse(atob(res.credential.split('.')[1]))
-        //         console.log(user);
-        //         this.store.OAuthUser = user
-        //     }
-        // },
-        // init() {
-        //     google.accounts.id.initialize({
-        //         client_id: "410541718272-uar8q0e69kcae892fo0fq59mvh7ilngk.apps.googleusercontent.com",
-        //         auto_select: true,
-        //         callback: this.handleResponse
-        //     })
-        //     google.accounts.id.prompt()
-        // }
-        getReels() {
+        getProfile() {
             this.spinner = true
-            fetch(this.store.api + '?getReels=1').then(res => res.json()).then(res => {
+            fetch(this.store.api + '?getProfile').then(res => res.json()).then(res => {
                 // console.log(res);
-                if (res) {
-                    this.store.reels = res
+                if (res.status) {
+                    
+                    this.store.reels = res.data.reels.map(node => new Reel(node))
+                    this.store.links = res.data.links.map(node => new Link(node))
+                    this.store.blogs = res.data.blogs.map(node => new Blog(node))
+                    this.store.solutions = res.data.solutions.map(node => new Solution(node))
+                    this.store.tutorials = res.data.tutorials.map(node => new Tutorial(node))
                 }
 
                 this.spinner = false
-                
+
             }).catch(err => {
                 console.log(err);
                 this.spinner = false
@@ -45,8 +38,7 @@ const app = Vue.createApp({
         }
     },
     mounted() {
-        console.log('mounted');
-        this.getReels()
+        this.getProfile()
     }
 })
 

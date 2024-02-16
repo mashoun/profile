@@ -43,15 +43,21 @@
 
 </head>
 
-<body id="app">
+<body id="app" class="bg-grid">
 
     <my-reels v-if="store.showReels" ></my-reels>
     <new-meeting v-if="store.showMeetingModal"></new-meeting>
     <subscribe v-if="store.showSubscribtionModal"></subscribe>
 
     <header class="container my-3 rounded">
-        <section class="bg-grid rounded shadow-sm">
-            <img src="/assets/wallpaper.jpg" alt="wallpaper" class="wallpaper object-fit-cover skeleton w-100 rounded-top" height="270">
+        <section class="bg-light rounded shadow-sm">
+            <swiper-container pagination="true" :autoplay="{delay:2500}" space-between="10" loop="true" effect="fade">
+                <swiper-slide><img src="/assets/wallpaper.jpg" alt="wallpaper" class="wallpaper object-fit-cover skeleton w-100 rounded" height="270"></swiper-slide>
+                <swiper-slide><img src="/assets/beirut-wallpaper.jpg" alt="wallpaper" class="wallpaper object-fit-cover skeleton w-100 rounded" height="270"></swiper-slide>
+                <swiper-slide><img src="/assets/wallpaper.jpg" alt="wallpaper" class="wallpaper object-fit-cover skeleton w-100 rounded" height="270"></swiper-slide>
+            
+            </swiper-container>
+            
             
             <aside class="p-3 d-flex flex-column gap-2 position-relative">
                 
@@ -60,12 +66,12 @@
                 </div>
                 <div class="w-100" style="height: 40px;"></div>
                 <div class="d-flex gap-3 flex-column">
-                    <section class="d-flex flex-column gap-1 bg-white w-fit">
+                    <section class="d-flex flex-column gap-1 w-fit">
                         <h1 class="bungee text-primary-200 fs-5 ls-1 d-flex gap-1 align-items-center">
                             <strong>Mahmoud Mashoun</strong>
                         </h1>
-                        <p class="fs-smaller text-secondary sans text-justify">
-                            <strong>Full Stack Web Developer, GDG Organiser & Google Workspace Automation Expert</strong>
+                        <p class="fs-smaller text-secondary sans text-justify ls-1">
+                            <strong>Google Workspace Automation Expert, FullStack Web Developer & GDG Organiser.</strong>
                         </p>
                     </section>
                     <section class="d-flex gap-1">
@@ -113,19 +119,18 @@
 
     <main class="my-5">
 
-        <solutions-section></solutions-section>
-
+        <!-- <solutions-section></solutions-section> -->
         <hr class="container my-5">
-
         <tutorials-section></tutorials-section>
-
         <hr class="container my-5">
 
         <section class="container">
             <div class="row g-4">
                 <div class="col-12">
-                    <subtitle>My Blogs</subtitle>
-                    <textnote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe atque, voluptas quos ipsa earum reprehenderit.</textnote>
+                    <div class="">
+                        <subtitle>My Blogs</subtitle>
+                        <textnote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe atque, voluptas quos ipsa earum reprehenderit.</textnote>
+                    </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <aside class="p-2 bg-light rounded shadow-sm d-flex flex-column gap-3">
@@ -140,8 +145,6 @@
                                 
                                 <a href="" aria-label="continue reading" class="text-success fs-x-small icon-link icon-link-hover ls-1"><span>continue reading</span> <i class="bi bi-arrow-right"></i></a>
                                 <div class="d-flex gap-2">
-                                    <!-- <span class="material-symbols-outlined text-secondary">add_reaction</span> -->
-                                    <!-- <span class="material-symbols-outlined text-secondary">comment</span> -->
                                     <span class="material-symbols-outlined text-secondary fs-small">share</span>
                                 </div>
                             </div>
@@ -155,7 +158,7 @@
     </main>
 
     <footer-section></footer-section>
-
+    <!-- <iframe src="https://drive.google.com/file/d/1TAy_L2AngHOekAngDcp9LatwkSEgEHlz/preview" width="640" height="480" allow="autoplay"></iframe> -->
 
     <!-- JAVASCRIPT -->
     <script src="./js/packages/bootstrap.min.js"></script>

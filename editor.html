@@ -20,7 +20,7 @@
 <body id="root">
     <page-not-found v-if="hideEditor" v-cloak ><span @dblclick="hideEditor = false">try again</span></page-not-found>
 
-    <section v-if="!store.isLogedIn && !hideEditor" v-cloak class="w-100 h-100 bg-light d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
+    <!-- <section v-if="!store.isLogedIn && !hideEditor" v-cloak class="w-100 h-100 bg-light d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
 
         <div class="container">
             <div class="row justify-content-center">
@@ -45,11 +45,15 @@
             </div>
         </div>
 
-    </section>
+    </section> -->
 
     <section v-if="!hideEditor" v-cloak  class="w-100 d-flex justify-content-between align-items-center gap-3 p-3 shadow-sm border">
         <section>
-            <h6 class="m-0 subtitle sans fw-bold">New Page</h6>
+            <!-- <h6 class="m-0 subtitle sans fw-bold">New Page</h6> -->
+            <select class="form-select">
+                <option value="pages">+Page</option>
+                <option value="links">+Link</option>
+            </select>
         </section>
         <section class="d-flex gap-2">
 
