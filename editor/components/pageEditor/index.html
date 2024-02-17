@@ -12,11 +12,11 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#pageEditor">
                             <div class="accordion-body">
                                 <aside class="d-flex flex-column gap-2">
-                                    <span class="fs-small text-secondary ps-1">select page type</span>
+                                    <span class="fs-small text-secondary ps-1">select page type {{selectPageType}}</span>
                                     <select class="form-select" v-model="store.nextPage.type">
-                                        <option value="BLOG">BLOG</option>
-                                        <option value="SOLUTION">SOLUTION</option>
-                                        <option value="TUTORIAL">TUTORIAL</option>
+                                        <option value="blogs">BLOG</option>
+                                        <option value="solutions">SOLUTION</option>
+                                        <option value="tutorials">TUTORIAL</option>
                                     </select>
                                     
                                     <input v-model="store.nextPage.badge" type="text" placeholder="Badge" class="form-control" list="badgeList">
@@ -33,8 +33,8 @@
                                             <img v-for="node in store.nextPage.thumbnails" :src="node.src64" :alt="node.alt" width="40" height="40" class="object-fit-contain rounded">
                                         </div>
                                     </div>
-                                    <input v-show="store.nextPage.type == 'SOLUTION'" v-model="store.nextPage.flag" type="text" placeholder="Project country flag" class="form-control">
-                                    <input v-show="store.nextPage.type == 'SOLUTION'" v-model="store.nextPage.client" type="text" placeholder="Project client" class="form-control">
+                                    <input v-show="store.nextPage.type == 'solutions'" v-model="store.nextPage.flag" type="text" placeholder="Project country flag" class="form-control">
+                                    <input v-show="store.nextPage.type == 'solutions'" v-model="store.nextPage.client" type="text" placeholder="Project client" class="form-control">
                                     <input v-model="store.nextPage.keywords" type="text" placeholder="Keywords" class="form-control">
                                     <textarea v-model="store.nextPage.description" type="text" placeholder="Description" class="form-control" rows="3"></textarea>
                                 </aside>
@@ -74,7 +74,7 @@
                                             <span class="m-0">publish</span>
                                         </button> -->
                                         <button @click="publishPage">Publish Test</button>
-                
+                                        <span class="spinner-border" v-if="spinner"></span>
                                     </section>
                                 </aside>
                             </div>

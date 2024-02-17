@@ -49,18 +49,18 @@
         <section class="container">
             <div class="row justify-content-between g-3">
                 <div class="col-12 col-lg-8">
-                    <aside class="p-3 bg-grid rounded shadow-sm d-flex flex-column gap-3">
+                    <aside class="p-3 bg-light rounded shadow-sm d-flex flex-column gap-3">
                         <blog-header aria-label="blog-header">
                             <div>
                                 <h1 class="fs-6 text-primary-200 sans fw-bold"  aria-label="Mahmoud Mashoun" >Mahmoud Mashoun</h1>
                                 <p class="text-primary-200 fs-smaller text-fade">Google Workspace Automation Expert, Full Stack Web Developer & GDG Organiser</p>
                             </div>
                         </blog-header>
-                        <blog-media media="https://lh3.googleusercontent.com/d/14Ha_qmsTRq_ZHp0ptl4rffmpSaw_QgWg,https://lh3.googleusercontent.com/d/14Ha_qmsTRq_ZHp0ptl4rffmpSaw_QgWg" aria-label="blog-media"></blog-media>
+                        <blog-media :media='[{"alt":"BLOG 0 2023-12-19 17:00:58","src":"https://picsum.photos/1920/1080"}]' aria-label="blog-media"></blog-media>
                         <blog-infobar aria-label="time" badge="BLOG" date="Tue Dec 19 2023 17:01:51 GMT+0200 (Eastern European Standard Time)"></blog-infobar>                        
                         <article class="d-flex flex-column gap-3">
                             <h2 aria-label="blog-title" class="bungee fs-5 text-primary-100">Google Apps Script</h2>
-                            <div class="bg-white">
+                            <div>
                                 <blockquote><strong>introduction to Google apps script</strong></blockquote><p><br></p>
                             </div>
                             <blog-footer title="Google Apps Script" url="https://mashoun.com/blogs/google-apps-script.html" aria-label="blog-footer"></blog-footer>
