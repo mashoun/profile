@@ -8,5 +8,10 @@ export default {
             utilities
         }
     },
-    props:['media']
+    props:['media'],
+    computed:{
+        thumbnails(){
+            return this.media.split(',')
+        }
+    }
 }

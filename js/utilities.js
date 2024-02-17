@@ -213,7 +213,15 @@ function isValidPayload(payload, keys = []) {
     }
 }
 
+function removeEmptyProperties(obj) {
+    return Object.fromEntries(
+        Object.entries(obj).filter(([key, value]) => value !== null && value !== '')
+    );
+}
+
+
 export default {
+    removeEmptyProperties,
     isValidPayload,
     githubPush,
     focus,

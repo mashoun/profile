@@ -30,12 +30,12 @@ var app = Vue.createApp({
                     password: this.store.password
                 })
             }).then(res => res.json()).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.status) {
-
                     this.spinner = false
-                    this.store.token = res.token
+                    this.store.token = res.data.token
                     this.store.isLogedIn = true
+                    this.getProfile()
                 }
             }).catch(err => {
                 console.log(err);
@@ -46,7 +46,7 @@ var app = Vue.createApp({
         getProfile() {
             this.spinner = true
             fetch(this.store.api + '?getProfile').then(res => res.json()).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.status) {
 
                     this.store.reels = res.data.reels.map(node => new Reel(node))
@@ -67,7 +67,7 @@ var app = Vue.createApp({
         }
     },
     async mounted() {
-        this.getProfile()
+        // this.getProfile()
         // fetching the template
         this.store.nextPageTemplate = await utilities.getPage('/_template/index.html')
     }
@@ -80,8 +80,6 @@ app.component('page-editor', pageEditor)
 import linksEditor from '../editor/components/linksEditor/index.js'
 app.component('links-editor', linksEditor)
 
-import preview from '../editor/components/preview/index.js'
-app.component('preview', preview)
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
@@ -92,7 +90,6 @@ const router = VueRouter.createRouter({
             name: 'home',
         },
         { path: '/links', component: linksEditor, name: 'links' },
-        { path: '/preview', component: preview, name: 'preview' }
     ]
 })
 
