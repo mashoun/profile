@@ -21,23 +21,23 @@
 
 <body id="root" class="bg-grid">
     
-    <section v-if="!store.isLogedIn" class="w-100 h-100 bg-light d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
+    <section v-if="!store.isLogedIn" class="w-100 h-100 bg-grid d-flex justify-content-center align-items-center position-fixed z-3 top-0 start-0">
 
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-4">
-                    <aside class="p-3 d-flex flex-column gap-3 shadow-sm rounded align-items-center text-center">
+                <div class="col-12 col-md-10 col-lg-6 col-xl-4">
+                    <aside class="p-3 bg-light d-flex flex-column gap-3 shadow-sm rounded align-items-center text-center">
                         <img src="/favicon.ico" alt="logo" width="75" class="object-fit-cover skeleton rounded-circle shadow-sm">
                         <div class="">
                             <h4 class="sans fs-4">Mahmoud Mashoun</h4>
                         </div>
+                        <div v-if="spinner" v-cloak class="spinner-line"></div>
                         <div class="w-100 d-flex flex-column gap-2">
                             <input v-model="store.username" @keyup.enter="utilities.focus('password')" type="text" placeholder="username" class="w-100 form-control">
                             <input v-model="store.password" @keyup.enter="login" id="password" type="password" placeholder="password" class="w-100 form-control">
                         </div>
-                        <button @click="login" class="w-100 btn btn-sm btn-outline-primary d-flex gap-2 align-items-center justify-content-center">
-                            <span v-show="spinner" v-cloak class="spinner-border spinner-border-sm"></span>
-                            <span class="text-primary-200 roboto text-lowercase">login</span>
+                        <button @click="login" :disabled="spinner" class="w-100 btn btn-sm btn-primary">
+                            Login
                         </button>
                         
                         <p class="text-secondary fs-x-small sans text-lowercase pt-1">dashboard - version 1.0</p>

@@ -65,7 +65,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button :disabled="!utilities.isValidPayload(addedLink, ['group', 'title', 'url']).status" @click="createNewLink" type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" aria-label="Close">Save changes</button>
+                            <button :disabled="!utilities.isValidPayload(addedLink, ['group', 'title', 'url']).status" @click="createNewLink" type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" aria-label="Close">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" @click="removeLink">Save changes</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" @click="removeLink">Confirm</button>
                         </div>
                     </div>
                 </div>

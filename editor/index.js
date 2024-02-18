@@ -33,7 +33,8 @@ var app = Vue.createApp({
                 // console.log(res);
                 if (res.status) {
                     this.spinner = false
-                    this.store.token = res.data.token
+                    this.store.githubToken = res.data.githubToken
+                    this.store.geminiToken = res.data.geminiToken
                     this.store.isLogedIn = true
                     this.getProfile()
                 }
@@ -55,7 +56,7 @@ var app = Vue.createApp({
                     this.store.solutions = res.data.solutions.map(node => new Solution(node))
                     this.store.tutorials = res.data.tutorials.map(node => new Tutorial(node))
 
-                    console.log(this.store.links);
+                    // console.log(this.store.links);
                 }
 
                 this.spinner = false

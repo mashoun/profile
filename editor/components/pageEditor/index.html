@@ -10,33 +10,126 @@
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#pageEditor">
-                            <div class="accordion-body">
+                            <div class="p-2">
                                 <aside class="d-flex flex-column gap-2">
-                                    <span class="fs-small text-secondary ps-1">select page type {{selectPageType}}</span>
-                                    <select class="form-select" v-model="store.nextPage.type">
-                                        <option value="blogs">BLOG</option>
-                                        <option value="solutions">SOLUTION</option>
-                                        <option value="tutorials">TUTORIAL</option>
-                                    </select>
+                                    <!-- Folder -->
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-folder2"></i></div>
+                                        <select class="form-select" v-model="store.nextPage.folder">
+                                            <option value="blogs">BLOG</option>
+                                            <option value="solutions">SOLUTION</option>
+                                            <option value="tutorials">TUTORIAL</option>
+                                        </select>
+                                    </div>
                                     
-                                    <input v-model="store.nextPage.badge" type="text" placeholder="Badge" class="form-control" list="badgeList">
-                                    <datalist id="badgeList">
-                                        <option value="COURSE">COURSE</option>
-                                        <option value="PROJECT">PROJECT</option>
-                                        <option value="BLOG">BLOG</option>
-                                        <option value="EVENT">EVENT</option>
-                                    </datalist>
-                                    <input v-model="store.nextPage.title" type="text" placeholder="Title" class="form-control">
-                                    <div class="form-control text-secondary d-flex gap-3 align-items-center justify-content-between" @click="selectImages" aria-label="add images" role="button" title="add images" >
-                                        <span class="">Thumbnail 🖼️</span>
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <img v-for="node in store.nextPage.thumbnails" :src="node.src64" :alt="node.alt" width="40" height="40" class="object-fit-contain rounded">
+                                    <!-- Solution flag -->
+                                    <div class="input-group" v-show="store.nextPage.folder == 'solutions'">
+                                        <span class="input-group-text"><i class="bi bi-flag"></i></span>
+                                        <input v-model="store.nextPage.flag" type="text" placeholder="Project country flag" class="form-control">
+                                    </div>
+                                    <!-- Solution client name -->
+                                    <div class="input-group" v-show="store.nextPage.folder == 'solutions'">
+                                        <div class="input-group-text"><i class="bi bi-briefcase"></i></div>
+                                        <input v-model="store.nextPage.client" type="text" placeholder="Project client" class="form-control">
+                                    </div>
+
+                                    <!-- BADGE -->
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-patch-check"></i>
+                                        </span>
+                                        <input v-model="store.nextPage.badge" type="text" placeholder="Badge" class="form-control">
+                                    </div>
+                                    
+                                    <!-- Images -->
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-image"></i>
+                                        </span>
+                                        <div class="form-control text-secondary d-flex gap-3 align-items-center justify-content-between" @click="selectImages" aria-label="add images" role="button" title="add images" >
+                                            <span class="">Thumbnail</span>
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <img v-for="node in store.nextPage.thumbnails" :src="node.src64" :alt="node.alt" width="40" height="40" class="object-fit-contain rounded">
+                                            </div>
                                         </div>
                                     </div>
-                                    <input v-show="store.nextPage.type == 'solutions'" v-model="store.nextPage.flag" type="text" placeholder="Project country flag" class="form-control">
-                                    <input v-show="store.nextPage.type == 'solutions'" v-model="store.nextPage.client" type="text" placeholder="Project client" class="form-control">
-                                    <input v-model="store.nextPage.keywords" type="text" placeholder="Keywords" class="form-control">
-                                    <textarea v-model="store.nextPage.description" type="text" placeholder="Description" class="form-control" rows="3"></textarea>
+
+                                    <!-- TITLE -->
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-type-h1"></i>
+                                        </span>
+                                        <input v-model="store.nextPage.title" type="text" placeholder="Title" class="form-control">
+                                        
+                                        <span title="Gemini AI" role="button" class="input-group-text" data-bs-toggle="modal" data-bs-target="#titleAiModel">
+                                            <i class="bi bi-stars text-primary-200"></i>
+                                        </span>
+                                        <!-- Title Ai Modal -->
+                                        <div class="modal fade" id="titleAiModel" tabindex="-1">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content p-3 text-center d-flex flex-column gap-3 align-items-center justify-content-center">
+                                                <i class="bi bi-stars fs-2 text-primary-100"></i>
+                                                <h1 class="bungee text-primary-200 fs-2">Gemini AI</h1>
+                                                <p class="roboto text-secondary"><b>Prompt: </b>Rewrite a better title instead of " Lorem ipsum dolor sit amet. "</p>
+                                                <div class="bg-gradient sans text-light fs-5 px-3 py-2 rounded ls-1 w-100" role="button">Continue</div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Keywords -->
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-key"></i></div>
+                                        <input v-model="store.nextPage.keywords" type="text" placeholder="Keywords" class="form-control">
+                                        
+                                        <span title="Gemini AI" role="button" class="input-group-text" data-bs-toggle="modal" data-bs-target="#keywordsAiModel">
+                                            <i class="bi bi-stars text-primary-200"></i>
+                                        </span>
+                                        <!-- Keywords Ai Modal -->
+                                        <div class="modal fade" id="keywordsAiModel" tabindex="-1">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content p-3 text-center d-flex flex-column gap-3 align-items-center justify-content-center">
+                                                <i class="bi bi-stars fs-2 text-primary-100"></i>
+                                                <h1 class="bungee text-primary-200 fs-2">Gemini AI</h1>
+                                                <p class="roboto text-secondary"><b>Prompt: </b>Based on this title " Lorem ipsum dolor sit amet. " write five seo keywords</p>
+                                                <div class="bg-gradient sans text-light fs-5 px-3 py-2 rounded ls-1 w-100" role="button">Continue</div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-card-text"></i></div>                                        
+                                        <textarea v-model="store.nextPage.description" type="text" placeholder="Description" class="form-control" rows="2"></textarea>
+                                        
+                                        <span title="Gemini AI" role="button" class="input-group-text" data-bs-toggle="modal" data-bs-target="#descriptionAiModel">
+                                            <i class="bi bi-stars text-primary-200"></i>
+                                        </span>
+                                        <!-- Description Ai Modal -->
+                                        <div class="modal fade" id="descriptionAiModel" tabindex="-1">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content p-3 text-center d-flex flex-column gap-3 align-items-center justify-content-center">
+                                                <i class="bi bi-stars fs-2 text-primary-100"></i>
+                                                <h1 class="bungee text-primary-200 fs-2">Gemini AI</h1>
+                                                <p class="roboto text-secondary fs-smaller"><b>Prompt 1: </b>Based on this title " Lorem ipsum dolor sit amet. " write two lines seo description</p>
+                                                <div class="bg-gradient sans text-light fs-5 px-3 py-2 rounded ls-1 w-100" role="button">Continue</div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <!-- Youtube -->
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-youtube"></i></div>
+                                        <input v-model="store.nextPage.youtube" type="text" placeholder="Youtube url" class="form-control">
+                                    </div>
+                                    <!-- Google Drive -->
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-google"></i></div>
+                                        <input v-model="store.nextPage.googleDrive" type="text" placeholder="Google drive url" class="form-control">
+                                    </div>
                                 </aside>
                             </div>
                         </div>
@@ -48,8 +141,17 @@
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#pageEditor">
-                            <div class="accordion-body">
-                                <aside>
+                            <div class="p-2">
+                                <aside class="d-flex flex-column gap-2">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-text d-flex align-items-center gap-2 px-3 px-md-2"><i class="bi bi-stars text-primary-200 fs-5"></i> <span class="d-none d-md-block roboto">Gemini AI</span></div>
+                                        <div class="form-control d-flex align-items-center gap-2 roboto">
+                                            <span class="px-2 py-1 border d-flex align-items-center gap-1 rounded fs-small"><span class="material-symbols-outlined text-primary-200 fs-6">edit_document</span><span class="d-none d-md-block">Rewrite article</span></span>
+                                            <span class="px-2 py-1 border d-flex align-items-center gap-1 rounded fs-small"><span class="material-symbols-outlined text-primary-200 fs-6">spellcheck</span><span class="d-none d-md-block">Spellcheck article</span></span>
+                                            <span class="px-2 py-1 border d-flex align-items-center gap-1 rounded fs-small"><span class="material-symbols-outlined text-primary-200 fs-6">short_text</span><span class="d-none d-md-block">Summarise article</span></span>
+                                            <span class="px-2 py-1 border d-flex align-items-center gap-1 rounded fs-small"><span class="material-symbols-outlined text-primary-200 fs-6">translate</span><span class="d-none d-md-block">Translator</span></span>
+                                        </div>
+                                    </div>
                                     <div id="editor-container"></div>
                                 </aside>
                             </div>
@@ -57,24 +159,22 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
                                 <span class="text-blockquote-dev bungee">3. Preview & Publish</span>
                             </button>
                         </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#pageEditor">
-                            <div class="accordion-body">
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#pageEditor">
+                            <div class="p-2">
                                 <aside>
                                     <section class="d-flex flex-column gap-3">
                                         <aside class="p-2 border rounded" style="min-height: 241.6px;">
                                             <div id="editor-output"></div>
                                         </aside>
-                                        <small v-show="!utilities.isValidPayload(store.nextPage,['badge','title','keywords','description','thumbnails']).status" class="fs-x-small text-danger">{{utilities.isValidPayload(store.nextPage,['badge','title','keywords','description','thumbnails']).message}}</small>
-                                        <!-- <button @click="generateBlog" class="btn btn-sm btn-outline-dark d-flex gap-2 align-items-center" style="width: fit-content !important;" :disabled="spinner || !isValidPage().status">
+                                        <small v-if="!utilities.isValidPayload(store.nextPage,['folder','badge','title','keywords','description','thumbnails']).status" class="fs-x-small text-danger">{{utilities.isValidPayload(store.nextPage,['folder','badge','title','keywords','description','thumbnails']).message}}</small>
+                                        <button v-else @click="publishPage" class="btn btn-sm btn-outline-dark d-flex gap-2 align-items-center" style="width: fit-content !important;" :disabled="spinner || !utilities.isValidPayload(store.nextPage,['folder','badge','title','keywords','description','thumbnails']).status">
                                             <span v-show="spinner" class="spinner-border spinner-border-sm"></span>
                                             <span class="m-0">publish</span>
-                                        </button> -->
-                                        <button @click="publishPage">Publish Test</button>
-                                        <span class="spinner-border" v-if="spinner"></span>
+                                        </button>
                                     </section>
                                 </aside>
                             </div>

@@ -13,7 +13,7 @@ export default class Page {
             this.url = payload.url
             this.article = payload.article
             // type = BLOG, SOLUTION, TUTORIAL
-            this.type = payload.type
+            this.folder = payload.folder
         } else {
             this.id = ''
             this.timestamp = ''
@@ -26,7 +26,7 @@ export default class Page {
             this.description = ''
             this.url = ''
             this.article = ''
-            this.type = ''
+            this.folder = ''
         }
     }
 }

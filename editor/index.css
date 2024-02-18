@@ -187,6 +187,11 @@ span {
 
 .ql-editor {
     min-height: 200px;
+    padding: 5px !important;
+}
+
+.ql-container.ql-snow {
+    border: none !important;
 }
 
 .ql-toolbar {
@@ -195,6 +200,7 @@ span {
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+    border-radius: .25em !important;
 }
 
 #editor-output>blockquote {
@@ -254,6 +260,13 @@ span {
 
 .pointer {
     cursor: pointer;
+}
+
+
+.bg-gradient {
+    /* background-image: linear-gradient(160deg, var(--primary-100) 0%, var(--primary-150) 100%); */
+    /* background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%) !important; */
+    background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC 51%, #02AAB0 100%) !important;
 }
 
 
@@ -328,6 +341,11 @@ span {
     align-items: center;
 }
 
+.text-outline {
+    /* color: transparent !important; */
+    -webkit-text-fill-color: whitesmoke;
+    -webkit-text-stroke: 1px #0d1b2a;
+}
 
 .text-blockquote {
     line-height: 1rem;
@@ -336,6 +354,7 @@ span {
     border: none;
     border-left: 4px solid var(--bs-warning);
 }
+
 .text-blockquote-dev {
     line-height: 1rem;
     color: var(--primary-200);
