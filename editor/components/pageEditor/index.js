@@ -1,6 +1,7 @@
 import utilities from "../../../js/utilities.js"
 import store from '../../../js/store.js'
 import Page from '../../../js/classes/Page.js'
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default {
     template: await utilities.getPage('/editor/components/pageEditor/index.html'),
@@ -25,6 +26,21 @@ export default {
         },
     },
     methods: {
+        async geminiRun(key,prompt) {
+            this.spinner = true
+            // Fetch your API_KEY
+            const API_KEY = this.store.geminiToken
+            // Access your API key (see "Set up your API key" above)
+            const genAI = new GoogleGenerativeAI(API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            const text = response.text();
+            console.log(text);
+            this.store.nextPage[key] = text.replaceAll('*','').replaceAll('-',',').replaceAll(' , ','')
+            this.spinner = false
+            return text
+        },
         restoreArticle() {
             document.getElementsByClassName('ql-editor').item(0).innerHTML = this.store.nextPage.article
         },
@@ -82,7 +98,7 @@ export default {
                     this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("<!-- _article -->", this.store.nextPage.article)
                     // remove live server code
                     this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll(/<!-- Code injected by live-server -->[\s\S]*?<\/script>/g, "")
-                    
+
                     // console.log(this.store.nextPageTemplate);
                     this.store.nextPageTemplate = utilities.text64(this.store.nextPageTemplate)
 
@@ -128,11 +144,13 @@ export default {
 
         });
 
+
         quill.on('text-change', function (delta, oldDelta, source) {
             // !!!!!!!!! the THIS operator of vue js is not scoped in here !!!!!!!!!!!!!!
             // Handle text change event
+
             document.getElementById('editor-output').innerHTML = quill.root.innerHTML
-            this.store.nextPage.article = quill.root.innerHTML
+            store.nextPage.article = quill.root.innerHTML
         });
 
         this.restoreArticle()
@@ -145,6 +163,6 @@ export default {
         this.store.nextPage.article = document.getElementById('editor-output').innerHTML
         // console.log(this.store.nextPage.article);
         next()
-        
+
     },
 }
