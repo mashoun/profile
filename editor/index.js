@@ -7,6 +7,7 @@ import Blog from '../js/classes/Blog.js'
 import Solution from '../js/classes/Solution.js'
 import Tutorial from '../js/classes/Tutorial.js'
 
+
 var app = Vue.createApp({
     data() {
         return {
@@ -30,7 +31,7 @@ var app = Vue.createApp({
                     password: this.store.password
                 })
             }).then(res => res.json()).then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.status) {
                     this.spinner = false
                     this.store.githubToken = res.data.githubToken
