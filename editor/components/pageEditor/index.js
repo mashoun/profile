@@ -23,10 +23,23 @@ export default {
                 case 'tutorials': return 'saveTutorial'
                 case 'solutions': return 'saveSolution'
             }
+            return false
         },
     },
     methods: {
-        async geminiRun(key,prompt) {
+        isValidTitle() {
+            // true if title exist
+            if (this.selectPageType) {
+                var array = this.store[this.store.nextPage.folder]
+                for (let node of array) {
+                    // console.log(utilities.encodeTitle(node.title.trim().toLowerCase()));
+                    if (utilities.encodeTitle(this.store.nextPage.title.trim().toLowerCase()) == utilities.encodeTitle(node.title.trim().toLowerCase())) return false
+                }
+            }
+
+            return true
+        },
+        async geminiRun(key, prompt) {
             this.spinner = true
             // Fetch your API_KEY
             const API_KEY = this.store.geminiToken
@@ -35,9 +48,10 @@ export default {
             const model = genAI.getGenerativeModel({ model: "gemini-pro" });
             const result = await model.generateContent(prompt);
             const response = await result.response;
+            console.log(response);
             const text = response.text();
-            console.log(text);
-            this.store.nextPage[key] = text.replaceAll('*','').replaceAll('-',',').replaceAll(' , ','')
+            // console.log(text);
+            this.store.nextPage[key] = text.replaceAll('*', '').replaceAll('-', ',')
             this.spinner = false
             return text
         },
@@ -50,67 +64,78 @@ export default {
             // 3. host page
             try {
 
-                this.spinner = true
-                this.store.nextPage.article = document.getElementById('editor-output').innerHTML
-                this.store.nextPage.url = this.generatePageUrl
+                const validation = utilities.isValidPayload(this.store.nextPage, ['title', 'badge', 'folder', 'keywords', 'description', 'thumbnails'])
+                if (validation.status && this.isValidTitle()) {
+                    if (this.store.nextPage.article != '') {
+                        if (confirm('M2akad bedak ta3mol publish ?')) {
+                            this.spinner = true
+                            this.store.nextPage.article = document.getElementById('editor-output').innerHTML
+                            this.store.nextPage.url = this.generatePageUrl
 
-                // saving record
-                var payload = {
-                    username: this.store.username,
-                    password: this.store.password,
-                    saveBlog: '',
-                    saveTutorial: '',
-                    saveSolution: ''
-                }
-                payload[this.selectPageType] = this.store.nextPage
-                payload = utilities.removeEmptyProperties(payload)
+                            // saving record
+                            var payload = {
+                                username: this.store.username,
+                                password: this.store.password,
+                                saveBlog: '',
+                                saveTutorial: '',
+                                saveSolution: ''
+                            }
+                            payload[this.selectPageType] = this.store.nextPage
+                            payload = utilities.removeEmptyProperties(payload)
+                            console.log('payload befor :');
+                            console.log(payload);
 
-                var res = await fetch(this.store.api + `?${this.selectPageType}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "text/plain"
-                    },
-                    body: JSON.stringify(payload)
-                })
-                res = await res.json()
-                console.log('results from backend after saving page:');
-                console.log(res);
-                if (res.status) {
-                    this.store.nextPage = new Page(res.data.record)
-                    console.log('NextPage = ');
-                    console.log(this.store.nextPage);
-                    // Generating the page
-                    // fetching the template
-                    this.store.nextPageTemplate = await utilities.getPage('/_template/index.html')
+                            var res = await fetch(this.store.api + `?${this.selectPageType}`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "text/plain"
+                                },
+                                body: JSON.stringify(payload)
+                            })
+                            res = await res.json()
+                            console.log('results from backend after saving page:');
+                            console.log(res);
+                            if (res.status) {
+                                this.store.nextPage = new Page(res.data.record)
+                                console.log('NextPage = ');
+                                console.log(this.store.nextPage);
+                                // Generating the page
+                                // fetching the template
+                                this.store.nextPageTemplate = await utilities.getPage('/_template/index.html')
 
-                    // subsituting the values
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll('_title', utilities.deQuote(this.store.nextPage.title.trim()))
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll('_url', 'https://mashoun.com/' + utilities.deQuote(this.store.nextPage.folder) + '/' + utilities.encodeTitle(this.store.nextPage.title) + '.html')
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_description", utilities.deQuote(this.store.nextPage.description.trim()))
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_keywords", utilities.deQuote(this.store.nextPage.keywords.trim()))
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_folder", utilities.deQuote(this.store.nextPage.folder))
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_badge", utilities.deQuote(this.store.nextPage.badge))
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_date", new Date().toUTCString())
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_thumbnail", this.store.nextPage.thumbnails[0])
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_media", this.store.nextPage.thumbnails.toString())
+                                // subsituting the values
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll('_title', utilities.deQuote(this.store.nextPage.title.trim()))
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll('_url', 'https://mashoun.com/' + utilities.deQuote(this.store.nextPage.folder) + '/' + utilities.encodeTitle(this.store.nextPage.title) + '.html')
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_description", utilities.deQuote(this.store.nextPage.description.trim()))
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_keywords", utilities.deQuote(this.store.nextPage.keywords.trim()))
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_folder", utilities.deQuote(this.store.nextPage.folder))
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_badge", utilities.deQuote(this.store.nextPage.badge))
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_date", new Date().toUTCString())
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_thumbnail", this.store.nextPage.thumbnails[0])
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("_media", this.store.nextPage.thumbnails.toString())
 
-                    // inserting article
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("<!-- _article -->", this.store.nextPage.article)
-                    // remove live server code
-                    this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll(/<!-- Code injected by live-server -->[\s\S]*?<\/script>/g, "")
+                                // inserting article
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll("<!-- _article -->", this.store.nextPage.article)
+                                // remove live server code
+                                this.store.nextPageTemplate = this.store.nextPageTemplate.replaceAll(/<!-- Code injected by live-server -->[\s\S]*?<\/script>/g, "")
 
-                    // console.log(this.store.nextPageTemplate);
-                    this.store.nextPageTemplate = utilities.text64(this.store.nextPageTemplate)
+                                // console.log(this.store.nextPageTemplate);
+                                this.store.nextPageTemplate = utilities.text64(this.store.nextPageTemplate)
 
-                    // Host page
-                    var github = await utilities.githubPush({
-                        content: this.store.nextPageTemplate,
-                        token: this.store.githubToken,
-                        filename: utilities.deQuote(this.store.nextPage.folder + "/") + utilities.encodeTitle(this.store.nextPage.title) + '.html'
-                    })
-                    console.log(github);
+                                // Host page
+                                var github = await utilities.githubPush({
+                                    content: this.store.nextPageTemplate,
+                                    token: this.store.githubToken,
+                                    filename: utilities.deQuote(this.store.nextPage.folder + "/") + utilities.encodeTitle(this.store.nextPage.title) + '.html'
+                                })
+                                // console.log(github);
+                                this.spinner = false
+                                alert('Meshe l7al')
 
-                }
+                            }
+                        }
+                    } else alert('Article is missing')
+                } else alert(validation.message)
 
             } catch (err) {
                 alert(err)
@@ -140,10 +165,25 @@ export default {
                     // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
                     ['bold', 'italic', 'underline', 'strike', 'clean', 'link', { 'direction': 'rtl' }, 'code-block', 'blockquote'],
                 ],
+                // keyboard: {
+                //     bindings: {
+                //         'ctrl+q': function (range, context) {
+                //             if (!context.selection.isCollapsed()) {
+                //                 quill.blockquote.toggle();
+                //             }
+                //         }
+                //     }
+                // }
             },
 
         });
 
+        // quill.keyboard.addBinding({
+        //     key: 'q',
+        //     ctrlKey: true
+        // }, function (range, context) {
+        //     quill.formatText(range, 'blockquote', true);
+        // });
 
         quill.on('text-change', function (delta, oldDelta, source) {
             // !!!!!!!!! the THIS operator of vue js is not scoped in here !!!!!!!!!!!!!!
@@ -166,3 +206,4 @@ export default {
 
     },
 }
+

@@ -7,6 +7,8 @@ import Blog from '../js/classes/Blog.js'
 import Solution from '../js/classes/Solution.js'
 import Tutorial from '../js/classes/Tutorial.js'
 
+import '../js/packages/day.min.js'
+import '../js/packages/relativetime.min.js'
 
 var app = Vue.createApp({
     data() {
@@ -37,7 +39,7 @@ var app = Vue.createApp({
                     this.store.githubToken = res.data.githubToken
                     this.store.geminiToken = res.data.geminiToken
                     this.store.isLogedIn = true
-                    this.getProfile()
+                    // this.getProfile()
                 }
             }).catch(err => {
                 console.log(err);
@@ -57,7 +59,7 @@ var app = Vue.createApp({
                     this.store.solutions = res.data.solutions.map(node => new Solution(node))
                     this.store.tutorials = res.data.tutorials.map(node => new Tutorial(node))
 
-                    // console.log(this.store.links);
+                    console.log(this.store.reels);
                 }
 
                 this.spinner = false
@@ -69,7 +71,7 @@ var app = Vue.createApp({
         }
     },
     async mounted() {
-        // this.getProfile()
+        this.getProfile()
         // fetching the template
         this.store.nextPageTemplate = await utilities.getPage('/_template/index.html')
     }
@@ -82,6 +84,9 @@ app.component('page-editor', pageEditor)
 import linksEditor from '../editor/components/linksEditor/index.js'
 app.component('links-editor', linksEditor)
 
+import reelsEditor from '../editor/components/reelsEditor/index.js'
+app.component('links-editor', reelsEditor)
+
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
@@ -92,6 +97,7 @@ const router = VueRouter.createRouter({
             name: 'home',
         },
         { path: '/links', component: linksEditor, name: 'links' },
+        { path: '/reels', component: reelsEditor, name: 'reels' }
     ]
 })
 

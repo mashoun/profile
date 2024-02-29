@@ -11,7 +11,7 @@ export default {
     isLogedIn: false,
     githubToken: '',
     geminiToken: '',
-    api: 'https://script.google.com/macros/s/AKfycbysgSXsHETpDYPMY7SvDk4gO5duhfJqp_hFZCZt6C80JqGlBYFETxqWPS57lrhAY1_2/exec',
+    api: 'https://script.google.com/macros/s/AKfycbyVKu654kBUN-wd-7wQbkinvyKCVuEZ4dtTovChTtN7xKkz9_ZxIvUSxh5j8ZPt5J8/exec',
     reels: [],
     solutions: [],
     blogs: [],
