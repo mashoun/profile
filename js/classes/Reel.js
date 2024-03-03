@@ -1,15 +1,8 @@
 export default class Reel {
     constructor(payload = null) {
-        if (payload) {
-            this.id = payload.id
-            this.timestamp = payload.timestamp
-            this.title = payload.title
-            this.thumbnails = payload.thumbnails
-        } else {
-            this.id = ''
-            this.timestamp = ''
-            this.title = ''
-            this.thumbnails = ''
+        var keys = ['id', 'timestamp','title', 'thumbnails']
+        for (let prop of keys) {
+            this[prop] = payload ? payload[prop] : ''
         }
     }
 }

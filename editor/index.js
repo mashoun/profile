@@ -50,7 +50,7 @@ var app = Vue.createApp({
         getProfile() {
             this.spinner = true
             fetch(this.store.api + '?getProfile').then(res => res.json()).then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.status) {
 
                     this.store.reels = res.data.reels.map(node => new Reel(node))
@@ -78,8 +78,17 @@ var app = Vue.createApp({
 })
 
 
+import pageNotFound from '../editor/components/pageNotFound/index.js'
+app.component('page-not-found', pageNotFound)
+
+import newPage from '../editor/components/newPage/index.js'
+app.component('new-page', newPage)
+
 import pageEditor from '../editor/components/pageEditor/index.js'
 app.component('page-editor', pageEditor)
+
+import updatePage from '../editor/components/updatePage/index.js'
+app.component('update-page', updatePage)
 
 import linksEditor from '../editor/components/linksEditor/index.js'
 app.component('links-editor', linksEditor)
@@ -97,7 +106,10 @@ const router = VueRouter.createRouter({
             name: 'home',
         },
         { path: '/links', component: linksEditor, name: 'links' },
-        { path: '/reels', component: reelsEditor, name: 'reels' }
+        { path: '/reels', component: reelsEditor, name: 'reels' },
+        { path: '/new-page', component: newPage, name: 'newPage' },
+        { path: '/update-page/:pageFolder/:pageId', component: updatePage, name: 'updatePage' },
+        { path: '/:pathMatch(.*)*', component: pageNotFound, name: 'pageNotFound' },
     ]
 })
 

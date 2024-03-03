@@ -218,9 +218,22 @@ function removeEmptyProperties(obj) {
         Object.entries(obj).filter(([key, value]) => value !== null && value !== '')
     );
 }
+function extractArticle(htmlString) {
+    const soup = new DOMParser().parseFromString(htmlString, "text/html");
+    const article = soup.querySelector("article");
+
+    if (article) {
+        const firstDiv = article.querySelector("div");
+        return firstDiv ? firstDiv.innerHTML : null;
+    }
+
+    return null;
+}
+
 
 
 export default {
+    extractArticle,
     removeEmptyProperties,
     isValidPayload,
     githubPush,

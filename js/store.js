@@ -8,7 +8,7 @@ export default {
     OAuthUser: false,
     username: 'mashoun',
     password: '2O24',
-    isLogedIn: false,
+    isLogedIn: true,
     githubToken: '',
     geminiToken: '',
     api: 'https://script.google.com/macros/s/AKfycbyVKu654kBUN-wd-7wQbkinvyKCVuEZ4dtTovChTtN7xKkz9_ZxIvUSxh5j8ZPt5J8/exec',

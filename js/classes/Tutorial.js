@@ -1,14 +1,8 @@
-export default class Tutorial {
-    constructor(payload) {
-        this.id = payload.id
-        this.timestamp = payload.timestamp
-        this.thumbnails = payload.thumbnails.split(',')
-        this.youtube = payload.youtube
-        this.googleDrive = payload.googleDrive
-        this.title = payload.title
-        this.badge = payload.badge
-        this.keywords = payload.keywords
-        this.description = payload.description
-        this.url = payload.url
+export default class Tutorials {
+    constructor(payload = null) {
+        var keys = ['id', 'timestamp', 'thumbnails', 'youtube', 'googleDrive', 'title', 'badge', 'keywords', 'description', 'url', 'folder']
+        for (let prop of keys) {
+            this[prop] = payload ? payload[prop] : ''
+        }
     }
 }
